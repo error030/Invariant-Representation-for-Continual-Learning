@@ -55,14 +55,17 @@ def parse_args():
 
     return check_args(parser.parse_args())
 
+#这一步是为了创建一个文件夹
+#输入和输出都是args 经过这个函数args不会发生任何变化，仅仅是利用这个对象的路径创建了个文件夹
 def check_args(args):
     # results_path
     try:
-        os.mkdir(args.results_path)
+        os.mkdir(args.results_path)#根据路径创建文件夹
     except(FileExistsError):
-        pass
+        pass#一个占位符，不显示任何东西
     # delete all existing files
-    files = glob.glob(args.results_path+'/*')
+    #这一步就是，如果已经创建了该文件夹并存有文件，那么就直接删除
+    files = glob.glob(args.results_path+'/*')#一个迭代器，用于稍后遍历文件夹下的文件并删除
     for f in files:
         os.remove(f)
     return args
