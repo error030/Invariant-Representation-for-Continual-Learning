@@ -118,7 +118,7 @@ def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decod
     x_id_one_hot = get_categorical(x_id_, n_classes).to(device)
     decoder.eval()
     with torch.no_grad():#这个with 的用法，表示不生成图进行计算，这样下面的x就不会被track（详细的见一个网址）
-        x = decoder(torch.cat([z,Variable(Tensor(x_id_one_hot))], 1))
+        x = decoder(torch.cat([z,Variable(Tensor(x_id_one_hot))], 1))#.cat表示拼接，[A,B]表示要拼的张量，1（0）表示横（竖）着拼
     return x, x_id_
 
 def evaluate(encoder, classifier, task_id, device, task_test_loader):
