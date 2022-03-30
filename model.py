@@ -10,7 +10,7 @@ cuda = True if torch.cuda.is_available() else False
 Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
 def reparameterization(mu, logvar,latent_dim):
-    std = torch.exp(logvar / 2)
+    std = torch.exp(logvar / 2) # std = var^(1/2)=exp(logvar/2)
     sampled_z = Variable(Tensor(np.random.normal(0, 1, (mu.size(0), latent_dim))))
     z = sampled_z * std + mu
     return z
