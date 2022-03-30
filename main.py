@@ -117,7 +117,7 @@ def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decod
     np.random.shuffle(x_id_)
     x_id_one_hot = get_categorical(x_id_, n_classes).to(device)
     decoder.eval()
-    with torch.no_grad():
+    with torch.no_grad():#这个with 的用法，表示不生成图进行计算，这样下面的x就不会被track（详细的见一个网址）
         x = decoder(torch.cat([z,Variable(Tensor(x_id_one_hot))], 1))
     return x, x_id_
 
