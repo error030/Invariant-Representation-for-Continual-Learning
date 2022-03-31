@@ -144,6 +144,7 @@ def train(args, optimizer_cvae, optimizer_C, encoder, decoder,classifer, train_l
     ## loss ##
     pixelwise_loss = torch.nn.MSELoss(reduction='sum')
     classification_loss = nn.CrossEntropyLoss()  
+    #这里涉及两个函数一个是.train()一个是.eval（），前者在包含Batchnorm和dropout时训练用，而后者是在test时调用，因为需要使用已经训练完成的model，而前者则是按照算法进行训练
     encoder.train()
     decoder.train()
     classifer.train()
