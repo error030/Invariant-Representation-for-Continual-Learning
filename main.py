@@ -269,9 +269,10 @@ def main(args):
     print('Average backward transfer (BWT): {:.3f}'.format(BWT))
 
 
+    #笑死了，其实这么点才是正文部分，正文部分没想到吧hhh
 if __name__ == '__main__':
     # parse arguments
-    args = parse_args()
+    args = parse_args()#初始化模型的参数
     if args is None:
         exit()
     # main
