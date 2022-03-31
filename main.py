@@ -199,7 +199,8 @@ def main(args):
     os.environ['PYTHONHASHSEED'] = str(args.seed)
     np.random.seed(args.seed)
 
-    use_cuda = not args.no_cuda and torch.cuda.is_available()
+    #这一段代码是判断GPU是否可用，如果不行就用cpu，并制定相应的设备
+    use_cuda = not args.no_cuda and torch.cuda.is_available()#这个is_avaliable()意思是判断GPU是否可用，返回true说明ok
     device = torch.device("cuda" if use_cuda else "cpu")
     print("used device: " + str(device))
      
