@@ -29,7 +29,7 @@ class Encoder(nn.Module):
         self.latent_dim = latent_dim
         
     def forward(self, img):
-        img_flat = img.view(img.shape[0], -1)
+        img_flat = img.view(img.shape[0], -1)#view是类似以size的操作，将tensor进行变形变成AXB，（A,B）-1表示自适应大小
         x = self.model(img_flat)
         mu = self.mu(x)
         logvar = self.logvar(x)
