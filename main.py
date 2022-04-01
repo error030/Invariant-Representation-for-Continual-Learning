@@ -135,6 +135,8 @@ def evaluate(encoder, classifier, task_id, device, task_test_loader):
             model_output = classifier(data.view(data.shape[0], -1), z_representation)#view和size的感觉差不多，这个是将tensor变换结构成为AXB，-1表示自适应结构
             #dim表示取的方向dim=0表示x[:,~]取法 dim=1表示x[~,：]取法，然后返回每一列（行）最大值的索引，这一步就是将softmax中最大的那个值所属类搞出来
             pred_class = model_output.argmax(dim=1, keepdim=True)
+            #.eq()表示张量的比较，返回一个相同维度的tensor，相同的地方为true，不同的地方为false
+            #view_as（A）表示返回与A相同size的tensor
             correct_class += pred_class.eq(target.view_as(pred_class)).sum().item()
 
     print('Test evaluation of task_id: {} ACC: {}/{} ({:.3f}%)'.format(
