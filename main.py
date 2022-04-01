@@ -165,6 +165,7 @@ def train(args, optimizer_cvae, optimizer_C, encoder, decoder,classifer, train_l
             y_onehot = get_categorical(target, args.n_classes).to(device)
             encoded_imgs,z_mu,z_var = encoder(data)
             decoded_imgs = decoder(torch.cat([encoded_imgs, y_onehot], dim=1))
+            #**表示乘方
             kl_loss = 0.5 * torch.sum(torch.exp(z_var) + z_mu**2 - 1. - z_var)/args.batch_size
             rec_loss = pixelwise_loss(decoded_imgs, data)/args.batch_size
             cvae_loss = rec_loss + kl_loss
