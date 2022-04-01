@@ -106,6 +106,7 @@ def get_categorical(labels, n_classes=10):
     return Variable(cat)
 
 def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decoder, replay_count, n_classes=10):
+    #这一步是随机生成 样本数×隐表示维度大小的拼接举证
     gen_count = sum(replay_count[0:task_id])
     z = Variable(Tensor(np.random.normal(0, 1, (gen_count, latent_dim))))    
     # this can be used if we want to replay different number of samples for each task
