@@ -132,7 +132,7 @@ def evaluate(encoder, classifier, task_id, device, task_test_loader):
             data, target = data.to(device), target.to(device, dtype=torch.int64)
             n += target.shape[0]
             z_representation,_,_ = encoder(data)
-            model_output = classifier(data.view(data.shape[0], -1), z_representation)
+            model_output = classifier(data.view(data.shape[0], -1), z_representation)#view和size的感觉差不多，这个是将tensor变换结构成为AXB，-1表示自适应结构
             pred_class = model_output.argmax(dim=1, keepdim=True)
             correct_class += pred_class.eq(target.view_as(pred_class)).sum().item()
 
