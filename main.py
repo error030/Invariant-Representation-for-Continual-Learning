@@ -18,6 +18,7 @@ from model import *
 import data_utils
 import plot_utils
 
+#过去的文章中会有一些初始化的参数在训练前，当时就觉得看起来不美观，用argparse进行管理的话会很方便。
 def parse_args():
     desc = "Pytorch implementation of Learning Invariant Representation for CL (IRCL) on the Split MNIST benchmark"
     parser = argparse.ArgumentParser(description=desc)
