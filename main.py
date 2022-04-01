@@ -111,6 +111,8 @@ def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decod
     # this can be used if we want to replay different number of samples for each task
     for i in range(task_id):
         if i==0:
+            #list中的-1表示最后一个数
+            #np.random.randint（a,b,c）生成一个c大小，元素取值在[a,b]的随机数表
             x_id_ = np.random.randint(0, curr_task_labels[i][-1]+1, size=[replay_count[i]])  
         else:
             x_id_ = np.concatenate((x_id_,np.random.randint(curr_task_labels[i][0], curr_task_labels[i][-1]+1, size=[replay_count[i]])))
