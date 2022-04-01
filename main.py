@@ -112,9 +112,11 @@ def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decod
     for i in range(task_id):
         if i==0:
             #list中的-1表示最后一个数
-            #np.random.randint（a,b,c）生成一个c大小，元素取值在[a,b]的随机数表
+            #np.random.randint（a,b,c）生成一个c大小，元素取值在（a,b）的随机数表
+            #因为这个取不到a，b所以需要加1来调整范围（这里是生成任务中分类的标签，所以说是整数）
             x_id_ = np.random.randint(0, curr_task_labels[i][-1]+1, size=[replay_count[i]])  
         else:
+            #这里的技巧就是replay_count中包含了每期任务需要生成的伪样本，也就是说维度是1xtask_id，然后这里把每期生成的与之前的全部加起来
             x_id_ = np.concatenate((x_id_,np.random.randint(curr_task_labels[i][0], curr_task_labels[i][-1]+1, size=[replay_count[i]])))
 
     np.random.shuffle(x_id_)
