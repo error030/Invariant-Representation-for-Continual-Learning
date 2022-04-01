@@ -137,6 +137,7 @@ def evaluate(encoder, classifier, task_id, device, task_test_loader):
             pred_class = model_output.argmax(dim=1, keepdim=True)
             #.eq()表示张量的比较，返回一个相同维度的tensor，相同的地方为true，不同的地方为false
             #view_as（A）表示返回与A相同size的tensor
+            #.item()表示取tensor的值
             correct_class += pred_class.eq(target.view_as(pred_class)).sum().item()
 
     print('Test evaluation of task_id: {} ACC: {}/{} ({:.3f}%)'.format(
