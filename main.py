@@ -256,6 +256,7 @@ def main(args):
             train_dataset[task_id-1].data = (gen_x*255).type(torch.uint8)
             train_dataset[task_id-1].targets = Variable(Tensor(gen_y)).type(torch.long)
             # concatenate the pseduo samples of previous tasks with the data of the current task
+            #这里的.CPU把数据从cuda转到cpu进行一些处理，然后在train的 一个for循环中，又用.to（device）将数据送到cuda中进行运算，不安这种操作进行，会报错
             train_dataset[task_id].data = torch.cat((train_dataset[task_id].data,train_dataset[task_id-1].data.cpu()))
             train_dataset[task_id].targets =  torch.cat((train_dataset[task_id].targets, train_dataset[task_id-1].targets.cpu()))
 
