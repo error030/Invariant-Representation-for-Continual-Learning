@@ -231,6 +231,7 @@ def main(args):
     decoder = Decoder(img_shape, args.n_hidden_cvae, args.latent_dim, n_classes, use_label=True)
     classifier = Classifier(img_shape, args.latent_dim, args.n_hidden_specific, args.n_hidden_classifier, n_classes)
     
+    #如果没有下面这几句就会报错：数据必须在同一个硬件上计算（CPU or cuda）
     encoder.to(device)
     decoder.to(device)
     classifier.to(device)
