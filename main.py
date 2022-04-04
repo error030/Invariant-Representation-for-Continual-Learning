@@ -249,6 +249,7 @@ def main(args):
     for task_id in range(num_tasks):
         print("Strat training task#" + str(task_id))
         sys.stdout.flush()
+        #下面这一部分的意思是进行伪排练，在task_id小于0的时候就正常训练不用生成图片
         if task_id>0:            
             # generate pseudo-samples of previous tasks
             gen_x,gen_y = generate_pseudo_samples(device, task_id, args.latent_dim, task_labels, decoder, num_replayed)
