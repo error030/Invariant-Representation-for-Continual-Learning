@@ -107,7 +107,7 @@ def get_categorical(labels, n_classes=10):
     return Variable(cat)
 
 def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decoder, replay_count, n_classes=10):
-    #这一步是随机生成 样本数×隐表示维度大小的拼接举证
+    #这两步步是随机生成 样本数×隐表示维度大小的拼接矩阵
     gen_count = sum(replay_count[0:task_id])
     z = Variable(Tensor(np.random.normal(0, 1, (gen_count, latent_dim))))    
     # this can be used if we want to replay different number of samples for each task
@@ -122,8 +122,10 @@ def generate_pseudo_samples(device, task_id, latent_dim, curr_task_labels, decod
             x_id_ = np.concatenate((x_id_,np.random.randint(curr_task_labels[i][0], curr_task_labels[i][-1]+1, size=[replay_count[i]])))
 
     np.random.shuffle(x_id_)
+    #利用get_categorical将类转化为one-hot的类
     x_id_one_hot = get_categorical(x_id_, n_classes).to(device)
     decoder.eval()
+    #把生成的样本数x隐表示的矩阵 与 生成的one-hot类进行拼接
     with torch.no_grad():#这个with 的用法，表示不生成图进行计算，这样下面的x就不会被track（详细的见一个网址）
         x = decoder(torch.cat([z,Variable(Tensor(x_id_one_hot))], 1))#.cat表示拼接，[A,B]表示要拼的张量，1（0）表示横（竖）着拼
     return x, x_id_
