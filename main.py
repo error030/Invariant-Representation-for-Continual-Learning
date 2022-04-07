@@ -103,6 +103,7 @@ def get_categorical(labels, n_classes=10):
     cat = np.array(labels.data.tolist())
     #这个.eye（）是生成对角矩阵然后为什么要对角呢，因为generate_pseudo_samples生成的标签是单独的标签1，而在机器学习中需要转化为列表假如10个类那就是[0,1,0,0,0,0,0,0,0,0]
     cat = np.eye(n_classes)[cat].astype('float32')
+    #.from_numpy()用于转换变量类型
     cat = torch.from_numpy(cat)
     return Variable(cat)
 
