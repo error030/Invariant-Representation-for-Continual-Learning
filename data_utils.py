@@ -41,7 +41,7 @@ def split_dataset_by_labels(dataset, task_labels):
     datasets = []
     task_idx = 0
     for labels in task_labels:
-        idx = np.in1d(dataset.targets, labels)#np.in1d（a,b）表示在a中找b标签，然后返回一个有false和true构成的mask
+        idx = np.in1d(dataset.targets, labels)#np.in1d（a,b）表示在a中找b(如果b是一个list就是a中有list中的值就是true)标签，然后返回一个有false和true构成的mask
         splited_dataset = copy.deepcopy(dataset)#复制一份数据集（与copy.copy区别）
         splited_dataset.targets = splited_dataset.targets[idx]
         splited_dataset.data = splited_dataset.data[idx]
